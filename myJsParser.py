@@ -93,12 +93,12 @@ start = 'js'
 
 precedence = (
     ('left', 'OROR'),
-	('left', 'ANDAND'),
-	('left', 'EQUALEQUAL'),
-	('left', 'LT', 'GT', 'LE', 'GE'),
-	('left', 'PLUS', 'MINUS'),
-	('left', 'TIMES', 'DIVIDE'),
-	('right', 'NOT'),
+    ('left', 'ANDAND'),
+    ('left', 'EQUALEQUAL'),
+    ('left', 'LT', 'GT', 'LE', 'GE'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('right', 'NOT'),
 ) 
 
 def p_js(p): 
@@ -110,64 +110,64 @@ def p_js_empty(p):
     p[0] = []
 
 def p_element_function(p):
-	'element : FUNCTION IDENTIFIER LPAREN optparams RPAREN compoundstmt'
-	p[0] = ('function', p[2], p[4], p[6])
+    'element : FUNCTION IDENTIFIER LPAREN optparams RPAREN compoundstmt'
+    p[0] = ('function', p[2], p[4], p[6])
 
 def p_element_stmt(p):
-	'element : stmt SEMICOLON'
-	p[0] = ('stmt', p[1])
+    'element : stmt SEMICOLON'
+    p[0] = ('stmt', p[1])
 
 def p_optparams(p):
-	'optparams : params'
-	p[0] = p[1]
+    'optparams : params'
+    p[0] = p[1]
 
 def p_optparams_empty(p):
-	'optparams : '
-	p[0] = []
+    'optparams : '
+    p[0] = []
 
 def p_params_one(p):
-	'params : IDENTIFIER'
-	p[0] = [p[1]]
+    'params : IDENTIFIER'
+    p[0] = [p[1]]
 
 def p_params_multi(p):
-	'params : IDENTIFIER COMMA params'
-	p[0] = [p[1]] + p[3]
+    'params : IDENTIFIER COMMA params'
+    p[0] = [p[1]] + p[3]
 
 def p_compoundstmt(p):
-	'compoundstmt : LBRACE stmts RBRACE'
-	p[0] = p[2]
+    'compoundstmt : LBRACE stmts RBRACE'
+    p[0] = p[2]
 
 def p_statements(p):
-	'stmts : stmt SEMICOLON stmts'
-	p[0] = [p[1]] + p[3]
+    'stmts : stmt SEMICOLON stmts'
+    p[0] = [p[1]] + p[3]
 
 def p_statements_empty(p):
-	'stmts : '
-	p[0] = []
+    'stmts : '
+    p[0] = []
 
 def p_stmt_if(p):
-	'stmt : IF exp compoundstmt'
-	p[0] = ('if-then', p[2], p[3])
+    'stmt : IF exp compoundstmt'
+    p[0] = ('if-then', p[2], p[3])
 
 def p_stmt_ifelse(p):
-	'stmt : IF exp compoundstmt ELSE compoundstmt'
-	p[0] = ('if-then-else', p[2], p[3], p[5])
+    'stmt : IF exp compoundstmt ELSE compoundstmt'
+    p[0] = ('if-then-else', p[2], p[3], p[5])
 
 def p_stmt_IDENTIFIER(p):
-	'stmt : IDENTIFIER EQUAL exp'
-	p[0] = ('assign', p[1], p[3])
+    'stmt : IDENTIFIER EQUAL exp'
+    p[0] = ('assign', p[1], p[3])
 
 def p_stmt_RETURN(p):
-	'stmt : RETURN exp'
-	p[0] = ('return', p[2])
+    'stmt : RETURN exp'
+    p[0] = ('return', p[2])
 
 def p_stmt_VAR(p):
-	'stmt : VAR IDENTIFIER EQUAL exp'
-	p[0] = ('var', p[2], p[4])
+    'stmt : VAR IDENTIFIER EQUAL exp'
+    p[0] = ('var', p[2], p[4])
 
 def p_stmt_exp(p):
-	'stmt : exp'
-	p[0] = ('exp', p[1])
+    'stmt : exp'
+    p[0] = ('exp', p[1])
 
 # Here's the rules for simple expressions.
 
@@ -200,36 +200,36 @@ def p_exp_parens(p):
     p[0] = p[2]
 
 def p_exp_andand(p):
-	'''exp : exp OROR exp
-	       | exp ANDAND exp
-	       | exp EQUALEQUAL exp
-	       | exp LT exp
-	       | exp GT exp
-	       | exp LE exp
-	       | exp GE exp
-	       | exp PLUS exp
-	       | exp MINUS exp
-	       | exp TIMES exp
-	       | exp DIVIDE exp'''
-	p[0] = ('binop', p[1], p[2], p[3])
+    '''exp : exp OROR exp
+           | exp ANDAND exp
+           | exp EQUALEQUAL exp
+           | exp LT exp
+           | exp GT exp
+           | exp LE exp
+           | exp GE exp
+           | exp PLUS exp
+           | exp MINUS exp
+           | exp TIMES exp
+           | exp DIVIDE exp'''
+    p[0] = ('binop', p[1], p[2], p[3])
 
 def p_exp_IDENTIFIER(p):
-	'exp : IDENTIFIER LPAREN optargs RPAREN'
-	p[0] = ('call', p[1], p[3])
+    'exp : IDENTIFIER LPAREN optargs RPAREN'
+    p[0] = ('call', p[1], p[3])
 
 def p_optargs_empty(p):
-	'optargs : '
-	p[0] = []
+    'optargs : '
+    p[0] = []
 
 def p_optargs(p):
-	'optargs : args'
-	p[0] = p[1]
+    'optargs : args'
+    p[0] = p[1]
 
 def p_args_multi(p):
-	'args : exp COMMA args'
-	p[0] = [p[1]] + p[3]
+    'args : exp COMMA args'
+    p[0] = [p[1]] + p[3]
 
 def p_args_one(p):
-	'args : exp'
-	p[0] = [p[1]]
+    'args : exp'
+    p[0] = [p[1]]
 
