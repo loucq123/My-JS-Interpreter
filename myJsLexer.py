@@ -41,6 +41,7 @@ tokens = [
     'DIVIDE',       # /
     'EQUAL',        # =
     'EQUALEQUAL',   # ==
+    'NOTEQUAL',     # !=
     'GE',           # >=
     'GT',           # >
     'IDENTIFIER',   # id
@@ -82,6 +83,7 @@ t_DIVIDE = r'/'
 t_ELSE = r'else'
 t_EQUAL = r'='
 t_EQUALEQUAL = r'=='
+t_NOTEQUAL = r'!='
 t_FALSE = r'false'
 t_FUNCTION = r'function'
 t_GE = r'>='
@@ -111,7 +113,7 @@ def t_IDENTIFIER(t):
 
 
 def t_NUMBER(t):
-    r'-?[0-9]+(?:\.[0-9]*)?'
+    r'[0-9]+(?:\.[0-9]*)?'
     if '.' in t.value:
         t.value = float(t.value)
     else:
