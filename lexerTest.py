@@ -17,12 +17,12 @@ def test_lexer(input_string):
 
 
 def test_single_token():
-    single_tokens = '''if else false true return function var && || , ;  = == 
+    single_tokens = '''if else false true return function var && || , ;  = == !=
                        >= > <= < { } ( ) ! + - * / '''
     types_of_tokens = [('IF', 'if'), ('ELSE', 'else'), ('FALSE', 'false'), ('TRUE', 'true'),
                        ('RETURN', 'return'), ('FUNCTION', 'function'), ('VAR', 'var'),
                        ('ANDAND', '&&'), ('OROR', '||'), ('COMMA', ','), ('SEMICOLON', ';'),
-                       ('EQUAL', '='), ('EQUALEQUAL', '=='), ('GE', '>='), ('GT', '>'),
+                       ('EQUAL', '='), ('EQUALEQUAL', '=='), ('NOTEQUAL', '!='), ('GE', '>='), ('GT', '>'),
                        ('LE', '<='), ('LT', '<'), ('LBRACE', '{'), ('RBRACE', '}'), ('LPAREN', '('),
                        ('RPAREN', ')'), ('NOT', '!'), ('PLUS', '+'), ('MINUS', '-'), ('TIMES', '*'),
                        ('DIVIDE', '/')]
@@ -31,8 +31,9 @@ def test_single_token():
 
 def test_number():
     numbers = '1 0 -1 123 -123 1.12 -1.12 0.1 -0.1'
-    types_of_numbers = [('NUMBER', 1), ('NUMBER', 0), ('NUMBER', -1), ('NUMBER', 123), ('NUMBER', -123),
-                        ('NUMBER', 1.12), ('NUMBER', -1.12), ('NUMBER', 0.1), ('NUMBER', -0.1)]
+    types_of_numbers = [('NUMBER', 1), ('NUMBER', 0), ('MINUS', '-'), ('NUMBER', 1), ('NUMBER', 123), ('MINUS', '-'),
+                        ('NUMBER', 123), ('NUMBER', 1.12),('MINUS', '-'), ('NUMBER', 1.12), ('NUMBER', 0.1),
+                        ('MINUS', '-'), ('NUMBER', 0.1)]
     assert test_lexer(numbers) == types_of_numbers
 
 
